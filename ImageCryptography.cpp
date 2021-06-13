@@ -1,5 +1,6 @@
 #include "ImageCryptography.h"
-void ImageCryptography::encrypt(const char* plainImageName, int* key, bool showImage, bool saveImage, char* saveName)
+#include <vector>
+void ImageCryptography::encrypt(const char* plainImageName, int * key, bool showImage, bool saveImage, char* saveName)
 {
     HopfieldNetwork hopfieldNetwork(30, 5);
     clock_t startTime(clock());
@@ -18,9 +19,7 @@ void ImageCryptography::encrypt(const char* plainImageName, int* key, bool showI
             pixel[0] = image.at<cv::Vec3b>(i, j)[0];
             pixel[1] = image.at<cv::Vec3b>(i, j)[1];
             pixel[2] = image.at<cv::Vec3b>(i, j)[2];
-            //std::cout << "Before encrypt: pixel(" << i << ", " << j << ") = (" << pixel[0] << " " << pixel[1] << " " << pixel[2] << ")\n";
             hopfieldNetwork.encrypt(pixel, key);
-            //std::cout << "After encrypt: pixel(" << i << ", " << j << ") = (" << pixel[0] << " " << pixel[1] << " " << pixel[2] << ")\n";
             image.at<cv::Vec3b>(i, j)[0] = pixel[0];
             image.at<cv::Vec3b>(i, j)[1] = pixel[1];
             image.at<cv::Vec3b>(i, j)[2] = pixel[2];
@@ -40,7 +39,7 @@ void ImageCryptography::encrypt(const char* plainImageName, int* key, bool showI
     {
         int min = (endTime - startTime) / 1000 / 60;
         int sec = (endTime - startTime) / 1000 % 60;
-        std::cout << "\nEnding encrypting... Encrypting in " << min << "minutes " << sec << " seconds\n";
+        std::cout << "\nEnding encrypting... Encrypting in " << min << " minutes " << sec << " seconds\n";
     }
 
 
@@ -66,7 +65,7 @@ void ImageCryptography::encrypt(const char* plainImageName, int* key, bool showI
                 }
                 name.push_back(plainImageName[i]);
             }
-            for (int i = pos; i < len; ++i)
+            for (size_t i = pos; i < len; ++i)
                 ext.push_back(plainImageName[i]);
 
             cv::imwrite(name + "_encryption." + ext, image);
@@ -95,7 +94,7 @@ void ImageCryptography::decrypt(const char* cipherImageName, int* key, bool show
             pixel[1] = image.at<cv::Vec3b>(i, j)[1];
             pixel[2] = image.at<cv::Vec3b>(i, j)[2];
             //std::cout << "Before encrypt: pixel(" << i << ", " << j << ") = (" << pixel[0] << " " << pixel[1] << " " << pixel[2] << ")\n";
-            hopfieldNetwork.encrypt(pixel, key);
+            hopfieldNetwork.decrypt(pixel, key);
             //std::cout << "After encrypt: pixel(" << i << ", " << j << ") = (" << pixel[0] << " " << pixel[1] << " " << pixel[2] << ")\n";
             image.at<cv::Vec3b>(i, j)[0] = pixel[0];
             image.at<cv::Vec3b>(i, j)[1] = pixel[1];
@@ -116,7 +115,7 @@ void ImageCryptography::decrypt(const char* cipherImageName, int* key, bool show
     {
         int min = (endTime - startTime) / 1000 / 60;
         int sec = (endTime - startTime) / 1000 % 60;
-        std::cout << "\nEnding encrypting... Decrypting in " << min << "minutes " << sec << " seconds\n";
+        std::cout << "\nEnding encrypting... Decrypting in " << min << " minutes " << sec << " seconds\n";
     }
 
 

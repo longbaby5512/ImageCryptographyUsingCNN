@@ -11,7 +11,7 @@ class ImageCryptography
 {
 public:
     static void encrypt(const char*, int*, bool = true, bool = false, char* = nullptr);
-    static void decrypt(const char*, int* key, bool = true, bool = false, char* = nullptr);
+    static void decrypt(const char*, int*, bool = true, bool = false, char* = nullptr);
 };
 
 

@@ -36,8 +36,8 @@ int pattern_4[] = { 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 
 
 
 int main(void)
-{
-    //ImageCryptography::encrypt("small.png", pattern_0, true, true);
-    ImageCryptography::decrypt("small_encryption.png", pattern_0, true, true);
+{   
+    //ImageCryptography::encrypt("small.png", pattern_3, true, true);
+    ImageCryptography::decrypt("small_encryption.png", pattern_3, true, true);
     return 0;
 }

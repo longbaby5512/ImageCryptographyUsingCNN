@@ -143,7 +143,7 @@ void HopfieldNetwork::bin2dec(int* binArr, int* decArr)
 }
 
 void HopfieldNetwork::encrypt(int* plaintext, int* pattern)
-{
+{   
     int binArr[24];
     dec2bin(plaintext, binArr);
     // Iterate 24 times

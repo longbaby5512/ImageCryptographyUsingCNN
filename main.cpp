@@ -36,8 +36,9 @@ int pattern_4[] = { 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 
 
 
 int main(void)
-{   
-    //ImageCryptography::encrypt("small.png", pattern_3, true, true);
-    ImageCryptography::decrypt("small_encryption.png", pattern_3, true, true);
+{      
+    std::vector<int*> key = { pattern_0, pattern_1, pattern_2 };
+    ImageCryptography::encrypt("small.png", key, 32, 4, true, true);
+    ImageCryptography::decrypt("small_encryption.png", key, 32, 4, true, true);
     return 0;
 }

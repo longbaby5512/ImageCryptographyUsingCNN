@@ -1,5 +1,4 @@
 #include "ImageCryptography.h"
-#include <vector>
 void ImageCryptography::encrypt(const char* plainImageName, int * key, bool showImage, bool saveImage, char* saveName)
 {
     HopfieldNetwork hopfieldNetwork(30, 5);
@@ -19,7 +18,9 @@ void ImageCryptography::encrypt(const char* plainImageName, int * key, bool show
             pixel[0] = image.at<cv::Vec3b>(i, j)[0];
             pixel[1] = image.at<cv::Vec3b>(i, j)[1];
             pixel[2] = image.at<cv::Vec3b>(i, j)[2];
+
             hopfieldNetwork.encrypt(pixel, key);
+
             image.at<cv::Vec3b>(i, j)[0] = pixel[0];
             image.at<cv::Vec3b>(i, j)[1] = pixel[1];
             image.at<cv::Vec3b>(i, j)[2] = pixel[2];
@@ -93,9 +94,9 @@ void ImageCryptography::decrypt(const char* cipherImageName, int* key, bool show
             pixel[0] = image.at<cv::Vec3b>(i, j)[0];
             pixel[1] = image.at<cv::Vec3b>(i, j)[1];
             pixel[2] = image.at<cv::Vec3b>(i, j)[2];
-            //std::cout << "Before encrypt: pixel(" << i << ", " << j << ") = (" << pixel[0] << " " << pixel[1] << " " << pixel[2] << ")\n";
+
             hopfieldNetwork.decrypt(pixel, key);
-            //std::cout << "After encrypt: pixel(" << i << ", " << j << ") = (" << pixel[0] << " " << pixel[1] << " " << pixel[2] << ")\n";
+
             image.at<cv::Vec3b>(i, j)[0] = pixel[0];
             image.at<cv::Vec3b>(i, j)[1] = pixel[1];
             image.at<cv::Vec3b>(i, j)[2] = pixel[2];
